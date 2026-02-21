@@ -23,8 +23,8 @@ class Calculator:
    #handler for redirecting button clicks
     def button_clicked(self):
         sender = self.sender()
-        name = sender.objectName()
-        text = sender.text()
+        name,text = sender.objectName(),sender.text()
+
         if name.startswith("n"):
             self.append(text)
         elif name.startswith("o"):
@@ -40,6 +40,12 @@ class Calculator:
             self.prepare()
         elif name == "ans":
             self.append('Ans')
+        elif name == "dot":
+            self.append('.')
+        elif name == 'upten':
+            self.append('*10^')
+        elif name == 'pi':
+            self.append('pi')
     #removing holder 0 and appending a string to the display
     def append(self, text):
         if self.new or window.display.text() == '0':
@@ -61,13 +67,14 @@ class Calculator:
             else:
                 text = text[:i] + '*' + self.ans + text[i+3:]
         text = text.replace('^', '**')
+        text = text.replace('pi','3.14159265358979323846264338327950288419716939937510')
         self.calc(text)
     #perform the eval and tell the class that the user has finished creating the equation
     def calc(self, expr):
         try:
             result = str(eval(expr))
             window.display.setText(result)
-            self.ans = result
+            self.ans = round(result, 6)
             self.new = 1
         except Exception as e:
             print("Error:", e)
