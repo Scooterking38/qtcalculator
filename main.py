@@ -23,13 +23,11 @@ class Calculator:
    #handler for redirecting button clicks
     def button_clicked(self,sender):
         name,text = sender.objectName(),sender.text()
-
-        if name.startswith("n") and len(name) == 2:
-            self.append(text)
-        elif name.startswith("o") and len(name) == 2:
-            self.append(text)
-        elif name.startswith("m") and len(name) == 2:
-            self.memory(text)
+        if len(name) == 2 and name[1].isalpha():
+            if name.startswith(('n','o')):
+                self.append(text)
+            elif name.startswith("m"):
+                self.memory(text)
         else: 
             match name:
                 case "AC":
@@ -47,6 +45,10 @@ class Calculator:
                     self.append('*10^')
                 case 'pi':
                     self.append('pi')
+                case 'floor':
+                    self.append('//')
+                case 'mod':
+                    self.append('%')
                 case _:
                     pass
     #removing holder 0 and appending a string to the display
