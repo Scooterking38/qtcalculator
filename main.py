@@ -25,27 +25,31 @@ class Calculator:
         sender = self.sender()
         name,text = sender.objectName(),sender.text()
 
-        if name.startswith("n"):
+        if name.startswith("n") and len(name) == 2:
             self.append(text)
-        elif name.startswith("o"):
+        elif name.startswith("o") and len(name) == 2:
             self.append(text)
-        elif name.startswith("m"):
+        elif name.startswith("m") and len(name) == 2:
             self.memory(text)
-        elif name == "AC":
-            window.display.setText('0')
-            self.new = 1
-        elif name == "DEL":
-            self.delete()
-        elif name == "calc":
-            self.prepare()
-        elif name == "ans":
-            self.append('Ans')
-        elif name == "dot":
-            self.append('.')
-        elif name == 'upten':
-            self.append('*10^')
-        elif name == 'pi':
-            self.append('pi')
+        else: 
+            match name:
+                case "AC":
+                    window.display.setText('0')
+                    self.new = 1
+                case "DEL":
+                    self.delete()
+                case "calc":
+                    self.prepare()
+                case "ans":
+                    self.append('Ans')
+                case "dot":
+                    self.append('.')
+                case 'upten':
+                    self.append('*10^')
+                case 'pi':
+                    self.append('pi')
+                case _:
+                    pass
     #removing holder 0 and appending a string to the display
     def append(self, text):
         if self.new or window.display.text() == '0':
