@@ -22,7 +22,6 @@ class Calculator:
             btn.clicked.connect(lambda checked, b=btn: self.button_clicked(b))
    #handler for redirecting button clicks
     def button_clicked(self,sender):
-        sender = self.sender()
         name,text = sender.objectName(),sender.text()
 
         if name.startswith("n") and len(name) == 2:
