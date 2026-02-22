@@ -77,7 +77,7 @@ class Calculator:
         try:
             result = str(eval(expr))
             window.display.setText(result)
-            self.ans = str(round(float(result, 6)))
+            self.ans = str(round(float(result), 6))
             self.new = 1
         except Exception as e:
             print("Error:", e)
