@@ -23,7 +23,7 @@ class Calculator:
    #handler for redirecting button clicks
     def button_clicked(self,sender):
         name,text = sender.objectName(),sender.text()
-        if len(name) == 2 and name[1].isalpha():
+        if len(name) == 2 and name[1].isdigit():
             if name.startswith(('n','o')):
                 self.append(text)
             elif name.startswith("m"):
