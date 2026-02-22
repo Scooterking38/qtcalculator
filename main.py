@@ -19,9 +19,9 @@ class Calculator:
         self.new = 1
         self.ops = ['+', '-', '*', '/', '^', '^2', '^3']
         for btn in window.findChildren(QPushButton):
-            btn.clicked.connect(self.button_clicked)
+            btn.clicked.connect(lambda checked, b=btn: self.button_clicked(b))
    #handler for redirecting button clicks
-    def button_clicked(self):
+    def button_clicked(self,sender):
         sender = self.sender()
         name,text = sender.objectName(),sender.text()
 
@@ -78,7 +78,7 @@ class Calculator:
         try:
             result = str(eval(expr))
             window.display.setText(result)
-            self.ans = round(result, 6)
+            self.ans = str(round(float(result, 6)))
             self.new = 1
         except Exception as e:
             print("Error:", e)
