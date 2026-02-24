@@ -1,5 +1,8 @@
-import sys
-sys.path.append(r"C:\py")
+try:
+    import sys
+    sys.path.append(r"C:\py")
+except Exception:
+    pass
 #imports
 import sys
 mode = 'gui'
