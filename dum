@@ -1,0 +1,10 @@
+import math,zlib
+from collections import Counter
+def score(p):
+    if not(length:=len(p)):return 0
+    log2=math.log2;char_probs=[count/length for count in Counter(p).values()]
+    entropy=lambda probs,order=1:-sum(x*log2(x)for x in probs if x>0)if order==1 else log2(sum(x**order for x in probs if x>0))/(1-order)
+    shannon,min_entropy=entropy(char_probs),-log2(max(char_probs))
+    alphabet_size=(26*(p!=p.upper())+26*(p!=p.lower())+10*any(map(str.isdigit,p))+33*(not p.isalnum()))or 1
+    transition_entropy=max(entropy([count/(length-1)for count in Counter(zip(p,p[1:])).values()])-entropy([count/(length-1)for count in Counter(p[:-1]).values()]),0)if length>1 else shannon
+    return length*log2(alphabet_size)*(entropy(char_probs,2)/log2(alphabet_size))*(min_entropy/(shannon or 1))*(1+transition_entropy)*len(zlib.compress(p.encode(),9))/(length+4)
