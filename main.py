@@ -1,7 +1,9 @@
+import sys
+sys.path.append(r"C:\py")
 #imports
 import sys
 mode = 'gui'
-try:
+if mode == 'gui':
     from PySide6.QtWidgets import QApplication, QPushButton
     from PySide6.QtUiTools import QUiLoader
     from PySide6.QtCore import QFile
@@ -12,8 +14,7 @@ try:
     loader = QUiLoader()
     window = loader.load(file)
     file.close()
-except Exception:
-    mode = 'cli'
+
 
 
 #make the calculator
@@ -38,7 +39,7 @@ class Calculator:
             print("=== CLI Calculator ===")
             print("Numbers: 0 1 2 3 4 5 6 7 8 9")
             print("Operators: + - * / ^ ^2 ^3")
-            print("Special: . (dot), pi, // (floor), % (mod), powerten (10^x)")
+            print("Special: . (dot), pi, // (floor), mod , powerten (10^x)")
             print("Memory: M+ (add), M- (subtract), MR (recall), MC (clear)")
             print("Other: AC (all clear), DEL (delete), = (calculate), Ans (last answer)")
             print("======================")
@@ -47,7 +48,7 @@ class Calculator:
             friendly_to_internal = {
                 '0':'n0','1':'n1','2':'n2','3':'n3','4':'n4','5':'n5','6':'n6','7':'n7','8':'n8','9':'n9',
                 '+':'o0','-':'o1','*':'o2','/':'o3','^':'o4','^2':'o5','^3':'o6',
-                '.':'dot','pi':'pi','//':'floor','%':'mod','powerten':'upten',
+                '.':'dot','pi':'pi','//':'floor','mod':'mod','powerten':'upten',
                 'M+':'m0','M-':'m1','MR':'m2','MC':'m3',
                 'AC':'AC','DEL':'DEL','=':'calc','Ans':'ans'
             }
@@ -108,7 +109,7 @@ class Calculator:
                 case 'floor':
                     self.append('//')
                 case 'mod':
-                    self.append('%')
+                    self.append('mod')
                 case _:
                     pass
 
@@ -144,10 +145,11 @@ class Calculator:
             result = str(eval(expr))
             self.setText(result)
             self.ans = str(round(float(result), 6))
-            self.new = 1
+            
         except Exception as e:
             print("Error:", e)
             self.setText('Error!')
+        self.new = 1
 
     #memory options: add to, subtract from, recall, and wipe
     def memory(self, option):
